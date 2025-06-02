@@ -481,6 +481,260 @@
             font-size: 14px;
         }
 
+        /* Recommendations Unlock Styles */
+        .recommendations-container {
+            position: relative;
+        }
+
+        .recommendations-blur {
+            filter: blur(5px);
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .recommendation-item.blurred {
+            user-select: none;
+        }
+
+        .unlock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .unlock-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .unlock-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+            letter-spacing: -0.02em;
+        }
+
+        .unlock-subtitle {
+            font-size: 1.1rem;
+            color: #666666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .points-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .points-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .points-item:last-child {
+            border-bottom: none;
+        }
+
+        .points-category {
+            font-size: 0.9rem;
+            color: #666666;
+            font-weight: 500;
+        }
+
+        .points-value {
+            font-size: 0.9rem;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .unlock-btn {
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .unlock-btn:hover {
+            background: #333333;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #666666;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #1a1a1a;
+        }
+
+        .modal-body {
+            padding: 0 40px 40px;
+        }
+
+        .modal-body p {
+            color: #666666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #000000;
+        }
+
+        .form-group input::placeholder {
+            color: #999999;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 14px 20px;
+            background: #ffffff;
+            color: #666666;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            border-color: #cccccc;
+            color: #1a1a1a;
+        }
+
+        .btn-primary {
+            flex: 2;
+            padding: 14px 20px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #333333;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -726,24 +980,100 @@
         <div class="recommendations-section">
             <div class="recommendations-title">AI-Generated Recommendations</div>
             
-            {% for rec in recommendations %}
-            <div class="recommendation-item">
-                <div class="recommendation-header">
-                    <div class="recommendation-category">{{ rec.category }}</div>
-                    <div class="recommendation-priority priority-{{ rec.priority|lower }}">
-                        {{ rec.priority }} Priority
+            <!-- Blurred Recommendations with Overlay -->
+            <div class="recommendations-container" id="recommendationsContainer">
+                <div class="recommendations-blur" id="recommendationsBlur">
+                    {% for rec in recommendations %}
+                    <div class="recommendation-item blurred">
+                        <div class="recommendation-header">
+                            <div class="recommendation-category">{{ rec.category }}</div>
+                            <div class="recommendation-priority priority-{{ rec.priority|lower }}">
+                                {{ rec.priority }} Priority
+                            </div>
+                        </div>
+                        <div class="recommendation-text">{{ rec.suggestion }}</div>
+                        <div class="recommendation-impact">
+                            📈 Potential Impact: {{ rec.impact }}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div style="text-align: center; color: #666666; padding: 40px;">
+                        <p>Great job! Your profile is well-optimized. Keep up the excellent work!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Unlock Overlay -->
+                <div class="unlock-overlay" id="unlockOverlay">
+                    <div class="unlock-content">
+                        <div class="unlock-icon">🔓</div>
+                        <h3 class="unlock-title">Unlock Your Personalized Recommendations</h3>
+                        <p class="unlock-subtitle">Get detailed insights to boost your profile score by up to <strong>+{{ total_potential_points }} points</strong></p>
+                        
+                        <div class="points-preview">
+                            {% for rec in recommendations %}
+                            <div class="points-item">
+                                <span class="points-category">{{ rec.category }}</span>
+                                <span class="points-value">{{ rec.impact }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <button class="unlock-btn" onclick="openContactModal()">
+                            Unlock Recommendations
+                        </button>
                     </div>
                 </div>
-                <div class="recommendation-text">{{ rec.suggestion }}</div>
-                <div class="recommendation-impact">
-                    📈 Potential Impact: {{ rec.impact }}
+
+                <!-- Unlocked Recommendations (Hidden Initially) -->
+                <div class="recommendations-unlocked" id="recommendationsUnlocked" style="display: none;">
+                    {% for rec in recommendations %}
+                    <div class="recommendation-item">
+                        <div class="recommendation-header">
+                            <div class="recommendation-category">{{ rec.category }}</div>
+                            <div class="recommendation-priority priority-{{ rec.priority|lower }}">
+                                {{ rec.priority }} Priority
+                            </div>
+                        </div>
+                        <div class="recommendation-text">{{ rec.suggestion }}</div>
+                        <div class="recommendation-impact">
+                            📈 Potential Impact: {{ rec.impact }}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div style="text-align: center; color: #666666; padding: 40px;">
+                        <p>Great job! Your profile is well-optimized. Keep up the excellent work!</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% empty %}
-            <div style="text-align: center; color: #666666; padding: 40px;">
-                <p>Great job! Your profile is well-optimized. Keep up the excellent work!</p>
+        </div>
+
+        <!-- Contact Modal -->
+        <div class="modal-overlay" id="contactModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Get Your Detailed Recommendations</h3>
+                    <button class="modal-close" onclick="closeContactModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your contact details to receive your personalized LinkedIn optimization recommendations.</p>
+                    <form id="contactForm" onsubmit="submitContactForm(event)">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" id="mobile" name="mobile" required placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="closeContactModal()">Cancel</button>
+                            <button type="submit" class="btn-primary">Unlock Recommendations</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            {% endfor %}
         </div>
         
         <div class="action-buttons">
@@ -780,6 +1110,155 @@
                         bar.style.width = width;
                     }, 500);
                 });
+            }
+        });
+
+        // Modal functions
+        function openContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal on overlay click
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('contactModal');
+            if (e.target === modal) {
+                closeContactModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+
+        // Handle contact form submission
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('.btn-primary');
+            const email = form.email.value;
+            const mobile = form.mobile.value;
+            
+            // Basic validation
+            if (!email || !mobile) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Unlocking...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call (you can replace this with actual API call)
+            setTimeout(() => {
+                // Store contact info (you might want to send this to your backend)
+                localStorage.setItem('userContact', JSON.stringify({
+                    email: email,
+                    mobile: mobile,
+                    timestamp: new Date().toISOString()
+                }));
+                
+                // Unlock recommendations
+                unlockRecommendations();
+                
+                // Close modal
+                closeContactModal();
+                
+                // Reset form
+                form.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Show success message
+                showSuccessMessage();
+            }, 1500);
+        }
+
+        function unlockRecommendations() {
+            const blur = document.getElementById('recommendationsBlur');
+            const overlay = document.getElementById('unlockOverlay');
+            const unlocked = document.getElementById('recommendationsUnlocked');
+            
+            if (blur && overlay && unlocked) {
+                // Hide blurred version and overlay
+                blur.style.display = 'none';
+                overlay.style.display = 'none';
+                
+                // Show unlocked recommendations
+                unlocked.style.display = 'block';
+                
+                // Add animation
+                unlocked.style.opacity = '0';
+                unlocked.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    unlocked.style.transition = 'all 0.5s ease';
+                    unlocked.style.opacity = '1';
+                    unlocked.style.transform = 'translateY(0)';
+                }, 100);
+            }
+        }
+
+        function showSuccessMessage() {
+            // Create and show success notification
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #059669;
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 8px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                    z-index: 1001;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    ✅ Recommendations unlocked successfully!
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Check if user has already provided contact info
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedContact = localStorage.getItem('userContact');
+            if (storedContact) {
+                const contact = JSON.parse(storedContact);
+                const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                
+                // If contact was provided within last 24 hours, auto-unlock
+                if (new Date(contact.timestamp) > oneDayAgo) {
+                    setTimeout(() => {
+                        unlockRecommendations();
+                    }, 1000);
+                }
             }
         });
     </script>

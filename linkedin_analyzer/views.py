@@ -237,9 +237,20 @@ def results(request, analysis_id):
         # Generate recommendations for display
         recommendations = generate_recommendations(analysis)
         
+        # Calculate total potential points
+        total_potential_points = 0
+        for rec in recommendations:
+            impact_str = rec.get('impact', '0')
+            # Extract number from impact string (e.g., "+15 points" -> 15)
+            import re
+            points_match = re.search(r'\+(\d+)', impact_str)
+            if points_match:
+                total_potential_points += int(points_match.group(1))
+        
         context = {
             'analysis': analysis,
-            'recommendations': recommendations
+            'recommendations': recommendations,
+            'total_potential_points': total_potential_points
         }
         
         return render(request, 'linkedin_analyzer/results.html', context)
