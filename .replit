@@ -17,3 +17,15 @@ deploymentTarget = "gce"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[workflows]
+runButton = "Django Server"
+
+[[workflows.workflow]]
+name = "Django Server"
+author = 39584120
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python manage.py runserver 0.0.0.0:3000"
