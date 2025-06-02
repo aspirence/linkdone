@@ -509,7 +509,9 @@
 
     <script>
         // Analyze button functionality
-        document.getElementById('analyzeNowBtn').addEventListener('click', async function() {
+        const analyzeBtn = document.getElementById('analyzeNowBtn');
+        if (analyzeBtn) {
+            analyzeBtn.addEventListener('click', async function() {
             const url = document.getElementById('heroUrlInput').value.trim();
 
             if (!url) {
@@ -523,14 +525,21 @@
             }
 
             await analyzeProfile({ linkedin_url: url }, this);
-        });
+            });
+        }
 
         // Hero CTA button - redirect to input section
-        document.getElementById('heroAnalyzeBtn').addEventListener('click', function() {
-            document.querySelector('.demo-section').scrollIntoView({ 
-                behavior: 'smooth' 
+        const heroBtn = document.getElementById('heroAnalyzeBtn');
+        if (heroBtn) {
+            heroBtn.addEventListener('click', function() {
+                const demoSection = document.querySelector('.demo-section');
+                if (demoSection) {
+                    demoSection.scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }
             });
-        });
+        }
 
         async function analyzeProfile(data, buttonElement = null) {
             // Show loading state on button
