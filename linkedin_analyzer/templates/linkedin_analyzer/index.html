@@ -741,65 +741,11 @@
                 </form>
             </div>
             
-            <div class="results-section">
-                <h2>Analysis Results</h2>
-                
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p>Analyzing your profile with AI...</p>
-                </div>
-                
-                <div id="results" style="display: none;">
-                    <div class="score-grid">
-                        <div class="score-card">
-                            <div class="score-title">Overall Score</div>
-                            <div class="score-value" id="overallScore">--</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="overallProgress"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="score-card">
-                            <div class="score-title">Profile Completeness</div>
-                            <div class="score-value" id="completenessScore">--</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="completenessProgress"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="score-card">
-                            <div class="score-title">Professional Score</div>
-                            <div class="score-value" id="professionalScore">--</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="professionalProgress"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="score-card">
-                            <div class="score-title">Engagement Score</div>
-                            <div class="score-value" id="engagementScore">--</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="engagementProgress"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="score-card">
-                            <div class="score-title">Network Score</div>
-                            <div class="score-value" id="networkScore">--</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="networkProgress"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="recommendations">
-                        <h3>AI-Generated Recommendations</h3>
-                        <div id="recommendationsList"></div>
-                    </div>
-                </div>
-                
-                <div id="placeholder" class="placeholder">
-                    <p>📝 Enter your LinkedIn profile URL or fill out the form to get your analysis</p>
+            <div class="loading-section" id="loadingSection" style="display: none;">
+                <div style="text-align: center; padding: 60px 20px;">
+                    <div class="spinner" style="width: 60px; height: 60px; border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid #0066cc; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                    <h2 style="color: #ffffff; margin-bottom: 10px;">Analyzing your LinkedIn profile...</h2>
+                    <p style="color: #888888;">Our AI is processing your data to provide personalized insights</p>
                 </div>
             </div>
         </div>
@@ -927,9 +873,7 @@
         
         async function analyzeProfile(data) {
             // Show loading
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('results').style.display = 'none';
-            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('loadingSection').style.display = 'block';
             
             // Disable buttons
             document.getElementById('analyzeUrlBtn').disabled = true;
@@ -950,31 +894,16 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    // Hide loading
-                    document.getElementById('loading').style.display = 'none';
-                    
-                    // Update scores
-                    updateScore('overall', result.scores.overall);
-                    updateScore('completeness', result.scores.completeness);
-                    updateScore('professional', result.scores.professional);
-                    updateScore('engagement', result.scores.engagement);
-                    updateScore('network', result.scores.network);
-                    
-                    // Show recommendations
-                    displayRecommendations(result.recommendations);
-                    
-                    // Show results
-                    document.getElementById('results').style.display = 'block';
+                    // Redirect to results page
+                    window.location.href = result.redirect_url;
                 } else {
                     alert('Error: ' + result.error);
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('placeholder').style.display = 'block';
+                    document.getElementById('loadingSection').style.display = 'none';
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while analyzing your profile.');
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('placeholder').style.display = 'block';
+                document.getElementById('loadingSection').style.display = 'none';
             } finally {
                 // Re-enable buttons
                 document.getElementById('analyzeUrlBtn').disabled = false;
@@ -983,26 +912,7 @@
             }
         }
         
-        function updateScore(type, score) {
-            document.getElementById(type + 'Score').textContent = Math.round(score);
-            document.getElementById(type + 'Progress').style.width = score + '%';
-        }
         
-        function displayRecommendations(recommendations) {
-            const container = document.getElementById('recommendationsList');
-            container.innerHTML = '';
-            
-            recommendations.forEach(rec => {
-                const item = document.createElement('div');
-                item.className = `recommendation-item priority-${rec.priority.toLowerCase()}`;
-                item.innerHTML = `
-                    <div class="recommendation-category">${rec.category} • ${rec.priority} Priority</div>
-                    <div class="recommendation-text">${rec.suggestion}</div>
-                    <div class="recommendation-impact">Potential Impact: ${rec.impact}</div>
-                `;
-                container.appendChild(item);
-            });
-        }
         
         function getCookie(name) {
             let cookieValue = null;

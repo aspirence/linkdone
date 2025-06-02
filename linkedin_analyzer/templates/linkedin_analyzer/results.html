@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile Analysis Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: #888888;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+        
+        .profile-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .profile-headline {
+            font-size: 1.2rem;
+            color: #0066cc;
+            margin-bottom: 20px;
+        }
+        
+        .profile-summary-text {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        
+        .scores-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-align: center;
+        }
+        
+        .overall-score {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 255, 136, 0.1));
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .overall-score-value {
+            font-size: 4rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        
+        .overall-score-label {
+            font-size: 1.2rem;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .score-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .score-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .score-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #0066cc, #ff4757);
+        }
+        
+        .score-title {
+            font-size: 1rem;
+            color: #888888;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .score-value {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #0066cc);
+            transition: width 1.5s ease;
+            border-radius: 3px;
+        }
+        
+        .score-description {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+        
+        .recommendations-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .recommendations-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-align: center;
+        }
+        
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .recommendation-item:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .recommendation-category {
+            font-weight: 500;
+            color: #0066cc;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .recommendation-priority {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .priority-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border-left: 4px solid #ff4757;
+        }
+        
+        .priority-medium {
+            background: rgba(255, 165, 2, 0.2);
+            color: #ffa502;
+            border-left: 4px solid #ffa502;
+        }
+        
+        .priority-low {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border-left: 4px solid #00ff88;
+        }
+        
+        .recommendation-text {
+            color: #cccccc;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .recommendation-impact {
+            font-size: 0.9rem;
+            color: #00ff88;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .action-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #0066cc, #004499);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+        }
+        
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .action-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .overall-score-value {
+                font-size: 3rem;
+            }
+            
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-summary,
+            .recommendations-section {
+                padding: 25px;
+            }
+            
+            .recommendation-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">
+            ← Back to Analyzer
+        </a>
+        
+        <div class="header">
+            <h1>LinkedIn Profile Analysis Results</h1>
+            <p>AI-powered insights and recommendations for professional growth</p>
+        </div>
+        
+        <div class="profile-summary">
+            <div class="profile-name">{{ analysis.name }}</div>
+            <div class="profile-headline">{{ analysis.headline }}</div>
+            <div class="profile-summary-text">{{ analysis.summary|truncatewords:50 }}</div>
+        </div>
+        
+        <div class="scores-section">
+            <div class="section-title">Performance Scores</div>
+            
+            <div class="overall-score">
+                <div class="overall-score-value">{{ analysis.overall_score|floatformat:0 }}/100</div>
+                <div class="overall-score-label">Overall LinkedIn Score</div>
+            </div>
+            
+            <div class="score-grid">
+                <div class="score-card">
+                    <div class="score-title">Profile Completeness</div>
+                    <div class="score-value">{{ analysis.profile_completeness_score|floatformat:0 }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ analysis.profile_completeness_score }}%"></div>
+                    </div>
+                    <div class="score-description">How complete your profile information is</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-title">Professional Score</div>
+                    <div class="score-value">{{ analysis.professional_score|floatformat:0 }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ analysis.professional_score }}%"></div>
+                    </div>
+                    <div class="score-description">Quality of professional presentation</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-title">Engagement Score</div>
+                    <div class="score-value">{{ analysis.engagement_score|floatformat:0 }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ analysis.engagement_score }}%"></div>
+                    </div>
+                    <div class="score-description">Level of activity and interaction</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-title">Network Score</div>
+                    <div class="score-value">{{ analysis.network_score|floatformat:0 }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ analysis.network_score }}%"></div>
+                    </div>
+                    <div class="score-description">Strength and size of your network</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recommendations-section">
+            <div class="recommendations-title">AI-Generated Recommendations</div>
+            
+            {% for rec in recommendations %}
+            <div class="recommendation-item priority-{{ rec.priority|lower }}">
+                <div class="recommendation-header">
+                    <div class="recommendation-category">{{ rec.category }}</div>
+                    <div class="recommendation-priority priority-{{ rec.priority|lower }}">
+                        {{ rec.priority }} Priority
+                    </div>
+                </div>
+                <div class="recommendation-text">{{ rec.suggestion }}</div>
+                <div class="recommendation-impact">
+                    📈 Potential Impact: {{ rec.impact }}
+                </div>
+            </div>
+            {% empty %}
+            <div style="text-align: center; color: #666666; padding: 40px;">
+                <p>Great job! Your profile is well-optimized. Keep up the excellent work!</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="action-btn">Analyze Another Profile</a>
+            <a href="#" class="action-btn secondary" onclick="window.print()">Download Report</a>
+        </div>
+    </div>
+    
+    <script>
+        // Animate progress bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -74,7 +74,8 @@ def analyze_profile(request):
                 'success': True,
                 'scores': scores,
                 'recommendations': recommendations,
-                'analysis_id': analysis.id
+                'analysis_id': analysis.id,
+                'redirect_url': f'/results/{analysis.id}/'
             })
             
         except Exception as e:
@@ -228,6 +229,24 @@ def validate_linkedin_url(request):
             return JsonResponse({'valid': False, 'error': str(e)})
     
     return JsonResponse({'valid': False, 'error': 'Invalid request method'})
+
+def results(request, analysis_id):
+    try:
+        analysis = ProfileAnalysis.objects.get(id=analysis_id)
+        
+        # Generate recommendations for display
+        recommendations = generate_recommendations(analysis)
+        
+        context = {
+            'analysis': analysis,
+            'recommendations': recommendations
+        }
+        
+        return render(request, 'linkedin_analyzer/results.html', context)
+    except ProfileAnalysis.DoesNotExist:
+        return render(request, 'linkedin_analyzer/index.html', {
+            'error': 'Analysis not found. Please try analyzing your profile again.'
+        })
 
 def get_analysis_history(request):
     analyses = ProfileAnalysis.objects.order_by('-created_at')[:10]
