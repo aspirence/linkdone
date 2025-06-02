@@ -510,9 +510,11 @@
     <script>
         // Analyze button functionality
         const analyzeBtn = document.getElementById('analyzeNowBtn');
-        if (analyzeBtn) {
+        const heroUrlInput = document.getElementById('heroUrlInput');
+        
+        if (analyzeBtn && heroUrlInput) {
             analyzeBtn.addEventListener('click', async function() {
-            const url = document.getElementById('heroUrlInput').value.trim();
+            const url = heroUrlInput.value.trim();
 
             if (!url) {
                 alert('Please enter a LinkedIn profile URL');
