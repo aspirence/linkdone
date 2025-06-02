@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import math
 from .models import ProfileAnalysis
+from .linkedin_scraper import LinkedInProfileScraper
 
 def index(request):
     return render(request, 'linkedin_analyzer/index.html')
@@ -15,21 +16,45 @@ def analyze_profile(request):
         try:
             data = json.loads(request.body)
             
-            # Create profile analysis
-            analysis = ProfileAnalysis(
-                name=data.get('name', ''),
-                headline=data.get('headline', ''),
-                summary=data.get('summary', ''),
-                experience_years=int(data.get('experience_years', 0)),
-                education_level=data.get('education_level', ''),
-                skills_count=int(data.get('skills_count', 0)),
-                connections_count=int(data.get('connections_count', 0)),
-                posts_per_month=int(data.get('posts_per_month', 0)),
-                recommendations_received=int(data.get('recommendations_received', 0)),
-                volunteer_experience=data.get('volunteer_experience', False),
-                certifications_count=int(data.get('certifications_count', 0)),
-                languages_count=int(data.get('languages_count', 0)),
-            )
+            # Check if URL is provided for automatic extraction
+            linkedin_url = data.get('linkedin_url')
+            if linkedin_url:
+                scraper = LinkedInProfileScraper()
+                try:
+                    profile_data = scraper.extract_profile_data(linkedin_url)
+                    # Use scraped data
+                    analysis = ProfileAnalysis(
+                        name=profile_data['name'],
+                        headline=profile_data['headline'],
+                        summary=profile_data['summary'],
+                        experience_years=int(profile_data['experience_years']),
+                        education_level=profile_data['education_level'],
+                        skills_count=int(profile_data['skills_count']),
+                        connections_count=int(profile_data['connections_count']),
+                        posts_per_month=int(profile_data['posts_per_month']),
+                        recommendations_received=int(profile_data['recommendations_received']),
+                        volunteer_experience=profile_data['volunteer_experience'],
+                        certifications_count=int(profile_data['certifications_count']),
+                        languages_count=int(profile_data['languages_count']),
+                    )
+                except Exception as e:
+                    return JsonResponse({'success': False, 'error': f'Failed to scrape profile: {str(e)}'})
+            else:
+                # Use manual input data
+                analysis = ProfileAnalysis(
+                    name=data.get('name', ''),
+                    headline=data.get('headline', ''),
+                    summary=data.get('summary', ''),
+                    experience_years=int(data.get('experience_years', 0)),
+                    education_level=data.get('education_level', ''),
+                    skills_count=int(data.get('skills_count', 0)),
+                    connections_count=int(data.get('connections_count', 0)),
+                    posts_per_month=int(data.get('posts_per_month', 0)),
+                    recommendations_received=int(data.get('recommendations_received', 0)),
+                    volunteer_experience=data.get('volunteer_experience', False),
+                    certifications_count=int(data.get('certifications_count', 0)),
+                    languages_count=int(data.get('languages_count', 0)),
+                )
             
             # Calculate AI-powered scores
             scores = calculate_profile_scores(analysis)
@@ -187,6 +212,22 @@ def generate_recommendations(profile):
         })
     
     return recommendations
+
+@csrf_exempt
+def validate_linkedin_url(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            url = data.get('url', '')
+            
+            scraper = LinkedInProfileScraper()
+            is_valid = scraper.validate_linkedin_url(url)
+            
+            return JsonResponse({'valid': is_valid})
+        except Exception as e:
+            return JsonResponse({'valid': False, 'error': str(e)})
+    
+    return JsonResponse({'valid': False, 'error': 'Invalid request method'})
 
 def get_analysis_history(request):
     analyses = ProfileAnalysis.objects.order_by('-created_at')[:10]

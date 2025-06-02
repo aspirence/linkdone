@@ -6,6 +6,10 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 Django = "^5.0"
 python = "^3.10"
+webdriver-manager = "^4.0.2"
+requests = "^2.32.3"
+beautifulsoup4 = "^4.13.4"
+selenium = "^4.33.0"
 [tool.poetry.dev-dependencies]
 
 [tool.pyright]
