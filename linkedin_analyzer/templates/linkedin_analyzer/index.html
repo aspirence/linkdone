@@ -25,35 +25,168 @@
             padding: 20px;
         }
         
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            min-height: 100vh;
+            align-items: center;
             padding: 60px 0;
         }
         
-        .header h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #888888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-content {
+            padding-right: 40px;
         }
         
-        .header p {
-            font-size: 1.4rem;
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: #ffffff;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
             color: #888888;
             font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .hero-input {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            placeholder: #666666;
+        }
+        
+        .hero-input::placeholder {
+            color: #666666;
+        }
+        
+        .hero-button {
+            padding: 15px 24px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .hero-button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .image-column {
+            position: relative;
+            height: 600px;
+        }
+        
+        .profile-card {
+            position: absolute;
+            width: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .profile-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .profile-card:nth-child(1) {
+            top: 20px;
+            right: 40px;
+            animation-delay: 0s;
+        }
+        
+        .profile-card:nth-child(2) {
+            top: 120px;
+            left: 20px;
+            animation-delay: 2s;
+        }
+        
+        .profile-card:nth-child(3) {
+            top: 220px;
+            right: 20px;
+            animation-delay: 4s;
+        }
+        
+        .profile-card:nth-child(4) {
+            top: 320px;
+            left: 40px;
+            animation-delay: 1s;
+        }
+        
+        .profile-card:nth-child(5) {
+            top: 420px;
+            right: 60px;
+            animation-delay: 3s;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .profile-info {
+            padding: 15px;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        
+        .profile-title {
+            font-size: 0.8rem;
+            color: #888888;
+            line-height: 1.3;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
         
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
-            margin-bottom: 80px;
+            margin: 80px 0;
         }
         
         .input-section {
@@ -346,14 +479,96 @@
             margin: 0;
         }
         
+        .footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0 40px;
+            margin-top: 100px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .footer-section p {
+            color: #888888;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #888888;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #666666;
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .image-column {
+                height: 400px;
+            }
+            
+            .profile-card {
+                width: 160px;
+            }
+            
             .main-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
-            }
-            
-            .header h1 {
-                font-size: 2.5rem;
             }
             
             .form-row {
@@ -363,14 +578,68 @@
             .score-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>LinkedIn Profile AI Analyzer</h1>
-            <p>Get AI-powered insights and recommendations to optimize your LinkedIn profile performance</p>
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Conversations with the trailblazers building the future at the intersection of LinkedIn and technology.</h1>
+                <p>LinkedIn Analyzer hosts live analysis every week with leading professionals, technologists, career experts, and entrepreneurs about the opportunities and challenges at the vanguard of professional networking. Sign up to join the community.</p>
+                <div class="hero-cta">
+                    <input type="text" class="hero-input" placeholder="LinkedIn Profile URL" id="heroUrlInput">
+                    <button class="hero-button" id="heroAnalyzeBtn">Analyze Now →</button>
+                </div>
+            </div>
+            
+            <div class="image-column">
+                <div class="profile-card">
+                    <div class="profile-image">👨‍💼</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Marc Glimcher</div>
+                        <div class="profile-title">President & CEO of Pace Gallery</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">👩‍🎨</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Anika Yi</div>
+                        <div class="profile-title">Conceptual Artist</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">👨‍🔬</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Refik Anadol</div>
+                        <div class="profile-title">New Media Artist & AI Pioneer</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">👩‍💻</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Auriea Harvey</div>
+                        <div class="profile-title">Digital Artist & Video Game Visionary</div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">👨‍💼</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Tech Executive</div>
+                        <div class="profile-title">Innovation Leader</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="main-content">
@@ -536,6 +805,49 @@
         </div>
     </div>
 
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>LinkedIn AI Analyzer</h3>
+                <p>Empowering professionals to optimize their LinkedIn presence with AI-driven insights and recommendations. Join thousands of users who have improved their professional visibility.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Features</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Profile Analysis</a></li>
+                    <li><a href="#">AI Recommendations</a></li>
+                    <li><a href="#">Score Tracking</a></li>
+                    <li><a href="#">Performance Metrics</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Best Practices</a></li>
+                    <li><a href="#">LinkedIn Tips</a></li>
+                    <li><a href="#">Career Advice</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 LinkedIn AI Analyzer. All rights reserved. Built with AI technology to help professionals succeed.</p>
+        </div>
+    </footer>
+
     <script>
         // Toggle manual form
         document.getElementById('toggleManualForm').addEventListener('click', function() {
@@ -549,6 +861,28 @@
                 manualForm.classList.add('active');
                 button.textContent = 'Hide manual form';
             }
+        });
+
+        // Hero section analyze button
+        document.getElementById('heroAnalyzeBtn').addEventListener('click', async function() {
+            const url = document.getElementById('heroUrlInput').value.trim();
+            
+            if (!url) {
+                alert('Please enter a LinkedIn profile URL');
+                return;
+            }
+            
+            if (!url.includes('linkedin.com/in/')) {
+                alert('Please enter a valid LinkedIn profile URL');
+                return;
+            }
+            
+            // Copy URL to main input and trigger analysis
+            document.getElementById('linkedin_url').value = url;
+            await analyzeProfile({ linkedin_url: url });
+            
+            // Scroll to results
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
         });
 
         // URL analysis
@@ -599,6 +933,7 @@
             
             // Disable buttons
             document.getElementById('analyzeUrlBtn').disabled = true;
+            document.getElementById('heroAnalyzeBtn').disabled = true;
             const manualSubmitBtn = document.querySelector('#manualForm button[type="submit"]');
             if (manualSubmitBtn) manualSubmitBtn.disabled = true;
             
@@ -643,6 +978,7 @@
             } finally {
                 // Re-enable buttons
                 document.getElementById('analyzeUrlBtn').disabled = false;
+                document.getElementById('heroAnalyzeBtn').disabled = false;
                 if (manualSubmitBtn) manualSubmitBtn.disabled = false;
             }
         }
