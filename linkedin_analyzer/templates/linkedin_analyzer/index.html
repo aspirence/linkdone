@@ -182,6 +182,11 @@
             }
         }
         
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -689,20 +694,6 @@
     </footer>
 
     <script>
-        // Toggle manual form
-        document.getElementById('toggleManualForm').addEventListener('click', function() {
-            const manualForm = document.getElementById('manualForm');
-            const button = this;
-            
-            if (manualForm.classList.contains('active')) {
-                manualForm.classList.remove('active');
-                button.textContent = 'Or enter details manually';
-            } else {
-                manualForm.classList.add('active');
-                button.textContent = 'Hide manual form';
-            }
-        });
-
         // Hero section analyze button
         document.getElementById('heroAnalyzeBtn').addEventListener('click', async function() {
             const url = document.getElementById('heroUrlInput').value.trim();
@@ -717,63 +708,26 @@
                 return;
             }
             
-            // Copy URL to main input and trigger analysis
-            document.getElementById('linkedin_url').value = url;
-            await analyzeProfile({ linkedin_url: url });
-            
-            // Scroll to results
-            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // URL analysis
-        document.getElementById('analyzeUrlBtn').addEventListener('click', async function() {
-            const url = document.getElementById('linkedin_url').value.trim();
-            
-            if (!url) {
-                alert('Please enter a LinkedIn profile URL');
-                return;
-            }
-            
-            if (!url.includes('linkedin.com/in/')) {
-                alert('Please enter a valid LinkedIn profile URL');
-                return;
-            }
-            
-            await analyzeProfile({ linkedin_url: url });
-        });
-
-        // Manual form submission
-        document.getElementById('manualForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                headline: formData.get('headline'),
-                summary: formData.get('summary'),
-                experience_years: formData.get('experience_years') || 0,
-                education_level: formData.get('education_level'),
-                skills_count: formData.get('skills_count') || 0,
-                connections_count: formData.get('connections_count') || 0,
-                posts_per_month: formData.get('posts_per_month') || 0,
-                recommendations_received: formData.get('recommendations_received') || 0,
-                volunteer_experience: formData.get('volunteer_experience') === 'on',
-                certifications_count: formData.get('certifications_count') || 0,
-                languages_count: formData.get('languages_count') || 0
-            };
-            
-            await analyzeProfile(data);
+            await analyzeProfile({ linkedin_url: url }, this);
         });
         
-        async function analyzeProfile(data) {
-            // Show loading
-            document.getElementById('loadingSection').style.display = 'block';
-            
-            // Disable buttons
-            document.getElementById('analyzeUrlBtn').disabled = true;
-            document.getElementById('heroAnalyzeBtn').disabled = true;
-            const manualSubmitBtn = document.querySelector('#manualForm button[type="submit"]');
-            if (manualSubmitBtn) manualSubmitBtn.disabled = true;
+        async function analyzeProfile(data, buttonElement = null) {
+            // Show loading state on button
+            if (buttonElement) {
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = 'Analyzing...';
+                buttonElement.disabled = true;
+                buttonElement.style.opacity = '0.6';
+                buttonElement.style.cursor = 'not-allowed';
+                
+                // Add spinner to button
+                buttonElement.innerHTML = `
+                    <span style="display: inline-flex; align-items: center; gap: 8px;">
+                        <div style="width: 16px; height: 16px; border: 2px solid transparent; border-top: 2px solid currentColor; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        Analyzing...
+                    </span>
+                `;
+            }
             
             try {
                 const response = await fetch('/analyze/', {
@@ -792,21 +746,26 @@
                     window.location.href = result.redirect_url;
                 } else {
                     alert('Error: ' + result.error);
-                    document.getElementById('loadingSection').style.display = 'none';
+                    // Reset button state
+                    if (buttonElement) {
+                        buttonElement.textContent = 'Analyze Now →';
+                        buttonElement.disabled = false;
+                        buttonElement.style.opacity = '1';
+                        buttonElement.style.cursor = 'pointer';
+                    }
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while analyzing your profile.');
-                document.getElementById('loadingSection').style.display = 'none';
-            } finally {
-                // Re-enable buttons
-                document.getElementById('analyzeUrlBtn').disabled = false;
-                document.getElementById('heroAnalyzeBtn').disabled = false;
-                if (manualSubmitBtn) manualSubmitBtn.disabled = false;
+                // Reset button state
+                if (buttonElement) {
+                    buttonElement.textContent = 'Analyze Now →';
+                    buttonElement.disabled = false;
+                    buttonElement.style.opacity = '1';
+                    buttonElement.style.cursor = 'pointer';
+                }
             }
         }
-        
-        
         
         function getCookie(name) {
             let cookieValue = null;
